@@ -2,3 +2,5 @@ https://raw.githubusercontent.com/davidsprieto/weather-map/main/weather-map-app.
 
 https://raw.githack.com/davidsprieto/weather-map/main/weather-map-app.html
 
+https://rawcdn.githack.com/davidsprieto/weather-map/main/weather-map-app.html
+
