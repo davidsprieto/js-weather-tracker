@@ -1,8 +1,8 @@
 "use strict";
 
 // Global variables of the latitude and longitude for Gurnee, IL ----------//
-var latitude = 42.3703;
-var longitude = -87.902;
+let latitude = 42.3703;
+let longitude = -87.902;
 
 // Function that makes the get request to the open weather api to obtain the 5-day forecast data --------//
 function retrieveData(location) {
