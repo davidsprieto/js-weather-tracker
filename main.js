@@ -132,4 +132,4 @@ $(".btn").click(function (e) {
 
         marker.on('dragend', draggable);
     })
-})
+});
