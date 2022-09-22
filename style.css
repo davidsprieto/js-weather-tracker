@@ -2,3 +2,16 @@ h5 {
     background-color: lightgray;
     width: 100%;
 }
+
+.bi-github {
+    color: black;
+}
+
+.bi-github:hover {
+    color: darkcyan;
+}
+
+footer {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}

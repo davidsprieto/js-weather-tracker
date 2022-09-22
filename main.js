@@ -1,18 +1,15 @@
 "use strict";
 
-// Global variables of the latitude and longitude for Gurnee, IL ----------//
+// Global variables of the latitude and longitude for the exact Center of the U.S. ----------//
 let latitude = 39.8283;
 let longitude = -98.5795;
 
-const mapBoxKey = 'pk.eyJ1IjoiZGF2aWRzcHJpZXRvIiwiYSI6ImNsMnFsZGtrdjAyZ28zYm9lYzNvOHVrbWYifQ.MInwhhSP2EcHcCPHsc5xYg';
-const openWeatherMapApiKey = "3589206b4c332e7a308a23b883754111";
-
 // Function that makes the get request to the open weather api to obtain the 5-day forecast data --------//
-function retrieveData(location) {
+function retrieveData(lon, lat) {
     $.get("https://api.openweathermap.org/data/2.5/onecall", {
         APPID: openWeatherMapApiKey,
-        lat: latitude,
         lon: longitude,
+        lat: latitude,
         units: "imperial",
         exclude: "minutely"
     }).done(function(data, status) {
@@ -126,12 +123,12 @@ $(".btn").click(function (e) {
     let searchInput = $("#input").val();
     geocode(searchInput, mapBoxKey).then(function(data) {
         console.log(data);
-        latitude = data[1];
         longitude = data[0];
+        latitude = data[1];
 
-        marker = new mapboxgl.Marker({draggable: true}).setLngLat([longitude, latitude]).addTo(map);
+        marker.setLngLat([longitude, latitude]);
         map.flyTo({center:[longitude, latitude]});
-        retrieveData();
+        retrieveData(longitude, latitude);
 
         marker.on('dragend', draggable);
     })
