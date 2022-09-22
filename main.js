@@ -1,8 +1,8 @@
 "use strict";
 
 // Global variables of the latitude and longitude for Gurnee, IL ----------//
-let latitude = 42.3703;
-let longitude = -87.902;
+let latitude = 39.8283;
+let longitude = -98.5795;
 
 const mapBoxKey = 'pk.eyJ1IjoiZGF2aWRzcHJpZXRvIiwiYSI6ImNsMnFsZGtrdjAyZ28zYm9lYzNvOHVrbWYifQ.MInwhhSP2EcHcCPHsc5xYg';
 const openWeatherMapApiKey = "3589206b4c332e7a308a23b883754111";
@@ -26,7 +26,7 @@ function retrieveData(location) {
     });
 }
 // A call to the function that makes the get request to retrieve the 5-day forecast data -------//
-retrieveData("Gurnee, US");
+retrieveData();
 
 // Display weather functions -----------//
 function displayWeather0(data) {
@@ -100,7 +100,7 @@ const map = new mapboxgl.Map({
     container: 'map', // container ID
     style: 'mapbox://styles/mapbox/streets-v11', // style URL
     center: [longitude, latitude], // starting position [lng, lat]
-    zoom: 10 // starting zoom
+    zoom: 4 // starting zoom
 });
 
 // Mapbox Map API Navigation Controls ------------//
