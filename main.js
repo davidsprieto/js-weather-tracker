@@ -18,80 +18,28 @@ function retrieveData(lon, lat) {
     }).done(function(data, status) {
         console.log(data);
         console.log(status);
-        displayWeather0(data);
-        displayWeather1(data);
-        displayWeather2(data);
-        displayWeather3(data);
-        displayWeather4(data);
+        displayWeather(data);
     });
 }
 // A call to the function that makes the get request to retrieve the 5-day forecast data -------//
 retrieveData();
 
-// Display weather functions -----------//
-function displayWeather0(data) {
-    let iconCode = data.daily[0].weather[0].icon;
-    let iconUrl = "https://openweathermap.org/img/w/" + iconCode + ".png";
-    const dayJsObject = dayjs();
-    $('#date0').html('Date: ' + dayJsObject.format("M/D/YYYY"));
-    $('#high-low0').html("High: " + data.daily[0].temp.max.toString() + " / Low: " + data.daily[0].temp.min.toString());
-    $('#image0').attr('src', iconUrl);
-    $('#description0').html("Description: " + data.daily[0].weather[0].description);
-    $('#humidity0').html("Humidity: " + data.daily[0].humidity);
-    $('#wind0').html("Wind Speed: " + data.daily[0].wind_speed)
-    $('#pressure0').html("Pressure: " + data.daily[0].pressure);
-}
+// Display weather function -----------//
+function displayWeather(data) {
 
-function displayWeather1(data) {
-    let iconCode = data.daily[1].weather[0].icon;
-    let iconUrl = "https://openweathermap.org/img/w/" + iconCode + ".png";
-    const dayJsObject = dayjs();
-    $('#date1').html('Date: ' + dayJsObject.add(1, 'day').format("M/D/YYYY"));
-    $('#high-low1').html("High: " + data.daily[1].temp.max.toString() + " / Low: " + data.daily[1].temp.min.toString());
-    $('#image1').attr('src', iconUrl);
-    $('#description1').html("Description: " + data.daily[1].weather[0].description);
-    $('#humidity1').html("Humidity: " + data.daily[1].humidity);
-    $('#wind1').html("Wind Speed: " + data.daily[1].wind_speed)
-    $('#pressure1').html("Pressure: " + data.daily[1].pressure);
-}
+    for (let i = 0; i < 5; i++) {
 
-function displayWeather2(data) {
-    let iconCode = data.daily[2].weather[0].icon;
-    let iconUrl = "https://openweathermap.org/img/w/" + iconCode + ".png";
-    const dayJsObject = dayjs();
-    $('#date2').html('Date: ' + dayJsObject.add(2, 'day').format("M/D/YYYY"));
-    $('#high-low2').html("High: " + data.daily[2].temp.max.toString() + " / Low: " + data.daily[2].temp.min.toString());
-    $('#image2').attr('src', iconUrl);
-    $('#description2').html("Description: " + data.daily[2].weather[0].description);
-    $('#humidity2').html("Humidity: " + data.daily[2].humidity);
-    $('#wind2').html("Wind Speed: " + data.daily[2].wind_speed)
-    $('#pressure2').html("Pressure: " + data.daily[2].pressure);
-}
-
-function displayWeather3(data) {
-    let iconCode = data.daily[3].weather[0].icon;
-    let iconUrl = "https://openweathermap.org/img/w/" + iconCode + ".png";
-    const dayJsObject = dayjs();
-    $('#date3').html('Date: ' + dayJsObject.add(3, 'day').format("M/D/YYYY"));
-    $('#high-low3').html("High: " + data.daily[3].temp.max.toString() + " / Low: " + data.daily[3].temp.min.toString());
-    $('#image3').attr('src', iconUrl);
-    $('#description3').html("Description: " + data.daily[3].weather[0].description);
-    $('#humidity3').html("Humidity: " + data.daily[3].humidity);
-    $('#wind3').html("Wind Speed: " + data.daily[3].wind_speed)
-    $('#pressure3').html("Pressure: " + data.daily[3].pressure);
-}
-
-function displayWeather4(data) {
-    let iconCode = data.daily[4].weather[0].icon;
-    let iconUrl = "https://openweathermap.org/img/w/" + iconCode + ".png";
-    const dayJsObject = dayjs();
-    $('#date4').html('Date: ' + dayJsObject.add(4, 'day').format("M/D/YYYY"));
-    $('#high-low4').html("High: " + data.daily[4].temp.max.toString() + " / Low: " + data.daily[4].temp.min.toString());
-    $('#image4').attr('src', iconUrl);
-    $('#description4').html("Description: " + data.daily[4].weather[0].description);
-    $('#humidity4').html("Humidity: " + data.daily[4].humidity);
-    $('#wind4').html("Wind Speed: " + data.daily[4].wind_speed)
-    $('#pressure4').html("Pressure: " + data.daily[4].pressure);
+        let iconCode = data.daily[i].weather[0].icon;
+        let iconUrl = "https://openweathermap.org/img/w/" + iconCode + ".png";
+        const dayJsObject = dayjs();
+        $('#date' + [i]).html('Date: ' + dayJsObject.add([i], 'day').format("M/D/YYYY"));
+        $('#high-low' + [i]).html("High: " + data.daily[i].temp.max.toString() + " / Low: " + data.daily[i].temp.min.toString());
+        $('#image' + [i]).attr('src', iconUrl);
+        $('#description' + [i]).html("Description: " + data.daily[i].weather[0].description);
+        $('#humidity' + [i]).html("Humidity: " + data.daily[i].humidity);
+        $('#wind' + [i]).html("Wind Speed: " + data.daily[i].wind_speed);
+        $('#pressure' + [i]).html("Pressure: " + data.daily[i].pressure);
+    }
 }
 
 // Mapbox Map API Object ------------//
