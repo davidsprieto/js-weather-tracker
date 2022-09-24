@@ -31,7 +31,7 @@ function displayWeather(data) {
         const DAY_JS_OBJECT = dayjs();
         let iconCode = data.daily[i].weather[0].icon;
 
-        $('#weather').append(
+        $('#weather').html(
         '<div class="col-2 card text-center">' +
             '<h5>' + "Date: " + DAY_JS_OBJECT.add([i], 'day').format("M/D/YYYY") + '</h5>' +
             '<p>' + "High: " + data.daily[i].temp.max.toString() + " / Low: " + data.daily[i].temp.min.toString() + '</p>' +
