@@ -63,7 +63,7 @@ function displayWeather(data) {
         htmlLine += '<p>' + "Pressure: " + data.daily[i].pressure + '</p>';
         htmlLine += '</div>';
         htmlLine += '<hr/>';
-        html = htmlLine;
+        html += htmlLine;
     }
     $('#weather').html(html);
 }
