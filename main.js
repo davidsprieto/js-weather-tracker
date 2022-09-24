@@ -25,25 +25,47 @@ function retrieveData(lon, lat) {
 retrieveData();
 
 // Display weather function -----------//
+// function displayWeather(data) {
+//
+//     for (let i = 0; i < 5; i++) {
+//         const DAY_JS_OBJECT = dayjs();
+//         let iconCode = data.daily[i].weather[0].icon;
+//
+//         $('#weather').html(
+//         '<div class="col-2 card text-center">' +
+//             '<h5>' + "Date: " + DAY_JS_OBJECT.add([i], 'day').format("M/D/YYYY") + '</h5>' +
+//             '<p>' + "High: " + data.daily[i].temp.max.toString() + " / Low: " + data.daily[i].temp.min.toString() + '</p>' +
+//             '<p>' + "<img src='https://openweathermap.org/img/w/" + iconCode + ".png' alt='weather icon'>" + '</p>' +
+//             '<p>' + "Description: " + data.daily[i].weather[0].description + '</p>' +
+//             '<p>' + "Humidity: " + data.daily[i].humidity + '</p>' +
+//             '<p>' + "Wind Speed: " + data.daily[i].wind_speed + '</p>' +
+//             '<p>' + "Pressure: " + data.daily[i].pressure + '</p>' +
+//         '</div>' +
+//         '<hr/>'
+//         );
+//     }
+// }
+
 function displayWeather(data) {
 
+    let html = "";
     for (let i = 0; i < 5; i++) {
         const DAY_JS_OBJECT = dayjs();
         let iconCode = data.daily[i].weather[0].icon;
 
-        $('#weather').html(
-        '<div class="col-2 card text-center">' +
-            '<h5>' + "Date: " + DAY_JS_OBJECT.add([i], 'day').format("M/D/YYYY") + '</h5>' +
-            '<p>' + "High: " + data.daily[i].temp.max.toString() + " / Low: " + data.daily[i].temp.min.toString() + '</p>' +
-            '<p>' + "<img src='https://openweathermap.org/img/w/" + iconCode + ".png' alt='weather icon'>" + '</p>' +
-            '<p>' + "Description: " + data.daily[i].weather[0].description + '</p>' +
-            '<p>' + "Humidity: " + data.daily[i].humidity + '</p>' +
-            '<p>' + "Wind Speed: " + data.daily[i].wind_speed + '</p>' +
-            '<p>' + "Pressure: " + data.daily[i].pressure + '</p>' +
-        '</div>' +
-        '<hr/>'
-        );
+        let htmlLine = '<div class="col-2 card text-center">';
+        htmlLine += '<h5>' + "Date: " + DAY_JS_OBJECT.add([i], 'day').format("M/D/YYYY") + '</h5>';
+        htmlLine += '<p>' + "High: " + data.daily[i].temp.max.toString() + " / Low: " + data.daily[i].temp.min.toString() + '</p>';
+        htmlLine += '<p>' + "<img src='https://openweathermap.org/img/w/" + iconCode + ".png' alt='weather icon'>" + '</p>';
+        htmlLine += '<p>' + "Description: " + data.daily[i].weather[0].description + '</p>';
+        htmlLine += '<p>' + "Humidity: " + data.daily[i].humidity + '</p>';
+        htmlLine += '<p>' + "Wind Speed: " + data.daily[i].wind_speed + '</p>';
+        htmlLine += '<p>' + "Pressure: " + data.daily[i].pressure + '</p>';
+        htmlLine += '</div>';
+        htmlLine += '<hr/>';
+        html = htmlLine;
     }
+    $('#weather').html(html);
 }
 
 // Mapbox Map API Object ------------//
