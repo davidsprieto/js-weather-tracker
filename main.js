@@ -4,10 +4,13 @@
 let latitude = 39.8283;
 let longitude = -98.5795;
 
+const MAP_BOX_KEY = 'pk.eyJ1IjoiZGF2aWRzcHJpZXRvIiwiYSI6ImNsMnFsZGtrdjAyZ28zYm9lYzNvOHVrbWYifQ.MInwhhSP2EcHcCPHsc5xYg';
+const OPEN_WEATHER_KEY = "3589206b4c332e7a308a23b883754111";
+
 // Function that makes the get request to the open weather api to obtain the 5-day forecast data --------//
 function retrieveData(lon, lat) {
     $.get("https://api.openweathermap.org/data/2.5/onecall", {
-        APPID: openWeatherMapApiKey,
+        APPID: OPEN_WEATHER_KEY,
         lon: longitude,
         lat: latitude,
         units: "imperial",
@@ -44,8 +47,8 @@ function displayWeather(data) {
 }
 
 // Mapbox Map API Object ------------//
-mapboxgl.accessToken = mapBoxKey;
-const map = new mapboxgl.Map({
+mapboxgl.accessToken = MAP_BOX_KEY;
+const MAP = new mapboxgl.Map({
     container: 'map', // container ID
     style: 'mapbox://styles/mapbox/streets-v11', // style URL
     center: [longitude, latitude], // starting position [lng, lat]
@@ -58,7 +61,7 @@ map.addControl(new mapboxgl.NavigationControl());
 // Mapbox Map API Marker ----------------//
 let marker = new mapboxgl.Marker({
     draggable: true
-}).setLngLat([longitude, latitude]).addTo(map);
+}).setLngLat([longitude, latitude]).addTo(MAP);
 
 // Functionality to draggable marker ----------//
 function draggable() {
@@ -73,13 +76,13 @@ marker.on('dragend', draggable);
 $(".btn").click(function (e) {
     e.preventDefault()
     let searchInput = $("#input").val();
-    geocode(searchInput, mapBoxKey).then(function(data) {
+    geocode(searchInput, MAP_BOX_KEY).then(function(data) {
         console.log(data);
         longitude = data[0];
         latitude = data[1];
 
         marker.setLngLat([longitude, latitude]);
-        map.flyTo({center:[longitude, latitude]});
+        MAP.flyTo({center:[longitude, latitude]});
         retrieveData(longitude, latitude);
 
         marker.on('dragend', draggable);
