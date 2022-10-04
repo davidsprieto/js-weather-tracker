@@ -4,7 +4,7 @@
 let latitude = 39.8283;
 let longitude = -98.5795;
 
-const MAP_BOX_KEY = 'pk.eyJ1IjoiZGF2aWRzcHJpZXRvIiwiYSI6ImNsMnFsZGtrdjAyZ28zYm9lYzNvOHVrbWYifQ.MInwhhSP2EcHcCPHsc5xYg';
+const MAP_BOX_KEY = "pk.eyJ1IjoiZGF2aWRzcHJpZXRvIiwiYSI6ImNsMnFsZGtrdjAyZ28zYm9lYzNvOHVrbWYifQ.MInwhhSP2EcHcCPHsc5xYg";
 const OPEN_WEATHER_KEY = "3589206b4c332e7a308a23b883754111";
 
 // Function that makes the get request to the open weather api to obtain the 5-day forecast data --------//
@@ -16,7 +16,7 @@ function retrieveData(lon, lat) {
         units: "imperial",
         exclude: "minutely"
     }).done(function(data, status) {
-        console.log(data);
+        // console.log(data);
         console.log(status);
         displayWeather(data);
     });
@@ -55,8 +55,12 @@ const MAP = new mapboxgl.Map({
     zoom: 4 // starting zoom
 });
 
+// Disables mouse scroll zoom ----------//
+MAP.scrollZoom.disable();
+
 // Mapbox Map API Navigation Controls ------------//
-map.addControl(new mapboxgl.NavigationControl());
+const NAV = new mapboxgl.NavigationControl();
+MAP.addControl(NAV, 'top-right');
 
 // Mapbox Map API Marker ----------------//
 let marker = new mapboxgl.Marker({
