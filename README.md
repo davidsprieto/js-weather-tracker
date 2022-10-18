@@ -1,2 +1,2 @@
 # Weather Tracker
-JavaScript Weather Tracking Application!
+JavaScript Weather Tracking SPA!
