@@ -16,7 +16,7 @@ function retrieveData(lon, lat) {
         units: "imperial",
         exclude: "minutely"
     }).done(function(data, status) {
-        // console.log(data);
+        console.log(data);
         console.log(status);
         displayWeather(data);
     });
