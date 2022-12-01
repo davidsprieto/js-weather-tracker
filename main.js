@@ -16,8 +16,8 @@ function retrieveData(lon, lat) {
         units: "imperial",
         exclude: "minutely"
     }).done(function(data, status) {
-        console.log(data);
-        console.log(status);
+        // console.log(data);
+        // console.log(status);
         displayWeather(data);
     });
 }
@@ -81,7 +81,7 @@ $(".btn").click(function (e) {
     e.preventDefault()
     let searchInput = $("#input").val();
     geocode(searchInput, MAP_BOX_KEY).then(function(data) {
-        console.log(data);
+        // console.log(data);
         longitude = data[0];
         latitude = data[1];
 
