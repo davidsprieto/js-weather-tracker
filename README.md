@@ -1,4 +1,4 @@
-# Weather Tracker - See the 5 Day Forecast at a Location of your Choosing!
+# Weather Tracker - See the 5-Day Forecast at a Location of your Choosing!
 Single-page web application developed using:
 
 Markup Language:
