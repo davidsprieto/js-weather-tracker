@@ -92,3 +92,6 @@ $(".btn").click(function (e) {
         marker.on('dragend', draggable);
     })
 });
+
+// TODO:
+//  Display location of current weather
