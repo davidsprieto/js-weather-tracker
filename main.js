@@ -4,6 +4,9 @@
 let latitude = 39.8283;
 let longitude = -98.5795;
 
+const MAP_BOX_KEY = 'pk.eyJ1IjoiZGF2aWRzcHJpZXRvIiwiYSI6ImNsMnFsZGtrdjAyZ28zYm9lYzNvOHVrbWYifQ.MInwhhSP2EcHcCPHsc5xYg';
+const OPEN_WEATHER_KEY = "3589206b4c332e7a308a23b883754111";
+
 // Function that makes the get request to the open weather api to obtain the 5-day forecast data --------//
 function retrieveData(lon, lat) {
     $.get("https://api.openweathermap.org/data/2.5/onecall", {
