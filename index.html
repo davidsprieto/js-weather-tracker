@@ -34,13 +34,16 @@
 <!-- The HTML form to allow users to search the 5-day forecast by city -->
 <form class="form-inline">
     <input class="form-control mr-sm-2" id="input" type="search" placeholder="Search 5-Day by City" aria-label="Search">
-    <button id="btn" class="btn btn-sm btn-primary" type="submit">Search</button>
+    <button id="btn" class="btn btn-sm" type="submit">Search</button>
 </form>
+
+<!-- The current location displayed here -->
+<div id="current-location-container">
+    <h3 id="current-location-label">Current Location: </h3>
+</div>
 
 <!-- The HTML element that serves as the Mapbox container -->
 <div id='map'></div>
-
-<div id="current-location-container"></div>
 
 <!-- The Weather Cards for the 5-day forecast displayed here: -->
 <div class="container-fluid">
@@ -63,6 +66,9 @@
     </svg></a></span>
 </footer>
 
+<!-- JQuery Script CDN: -->
+<script defer rel="script" src="jquery-2.2.4.js"></script>
+
 <!-- Bootstrap Script CDN: -->
 <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
@@ -74,9 +80,6 @@
 
 <!--Day.js Script CDN: API/CDN Used for the dates -->
 <script defer src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
-
-<!-- JQuery Script CDN: -->
-<script defer rel="script" src="jquery-2.2.4.js"></script>
 
 <!-- API Keys -->
 <script defer type="text/javascript" src="config.js"></script>

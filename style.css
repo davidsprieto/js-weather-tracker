@@ -19,6 +19,8 @@
     width: 96%;
     height: 600px;
     margin: 1rem auto;
+    border-radius: 10px;
+    border: 2px solid lightgray;
 }
 
 #current-location-label {
@@ -26,6 +28,15 @@
     flex-direction: row;
     justify-content: center;
     margin: 2rem;
+    text-decoration: underline;
+}
+
+.btn {
+    background-color: lightblue;
+}
+
+.btn:hover {
+    background-color: lightgray;
 }
 
 #weather {
@@ -33,9 +44,16 @@
     margin-right: 1%;
 }
 
+.card {
+    border-radius: 10px;
+    border: 2px solid lightgray;
+}
+
 .weather-date {
-    background-color: lightgray;
+    background-color: lightblue;
+    border-radius: 2px;
     width: 100%;
+    margin-top: 0.5rem;
 }
 
 .bi-github {

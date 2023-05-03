@@ -1,15 +1,16 @@
 "use strict";
 
-// Global variables of the latitude and longitude for the exact Center of the U.S. ----------//
-let latitude = 39.8283;
-let longitude = -98.5795;
-
+// API Keys
 const MAP_BOX_KEY = config.MAP_BOX_KEY;
 const OPEN_WEATHER_KEY = config.OPEN_WEATHER_KEY;
 
+// Global variables of the latitude and longitude (initially set for the exact Center of the U.S.) ----------//
+let latitude = 39.8283;
+let longitude = -98.5795;
+
 // Function that makes the get request to the open weather api to obtain the 5-day forecast data --------//
-function retrieveData(lon, lat) {
-  $.get("https://api.openweathermap.org/data/2.5/onecall", {
+function retrieveData() {
+  $.get("https://api.openweathermap.org/data/2.8/onecall", {
     APPID: OPEN_WEATHER_KEY,
     lon: longitude,
     lat: latitude,
@@ -19,11 +20,9 @@ function retrieveData(lon, lat) {
     displayWeather(data);
   });
 }
-
-// A call to the function that makes the get request to retrieve the 5-day forecast data -------//
 retrieveData();
 
-// Function that renders the weather data to the page
+// Function that renders the weather data to the page ----------//
 function displayWeather(data) {
 
   let html = "";
@@ -46,12 +45,26 @@ function displayWeather(data) {
   $('#weather').html(html);
 }
 
-// Function that displays the current location of the weather
-function displayCurrentCity(searchInput) {
-  let location = searchInput[0].toUpperCase() + searchInput.slice(1);
-  let html = `<h3 id="current-location-label">Current Location: ${location}</h3>`;
-  $('#current-location-container').html(html);
+// Function that renders the current city on the page ----------//
+function renderHtml(city) {
+  let html = `<h3 id="current-location-label">Current Location: ${city}</h3>`;
+  return $('#current-location-container').html(html);
 }
+
+// Function that displays the city of the weather when the user inputs a city ----------//
+function displaySearchedCity(searchInput) {
+  let city = searchInput[0].toUpperCase() + searchInput.slice(1);
+  renderHtml(city);
+}
+
+// Function that displays the city of the weather when the user drags the marker to a city on the map ----------//
+function displayMarkerDragCity(longitude, latitude) {
+  reverseGeocode({lat:latitude, lng:longitude}, MAP_BOX_KEY).then(function (data) {
+    let city = data.split(',')[1].trim();
+    renderHtml(city);
+  });
+}
+displayMarkerDragCity(longitude, latitude);
 
 // Mapbox Map API Object ------------//
 mapboxgl.accessToken = MAP_BOX_KEY;
@@ -80,26 +93,25 @@ function draggable() {
   longitude = lngLat.lng;
   latitude = lngLat.lat;
   retrieveData();
+  displayMarkerDragCity(longitude, latitude);
 }
-
 marker.on('dragend', draggable);
 
 // City search input function to display the 5-day weather forecast, drop a marker, and center (flyTo) the map on the searched city ------//
 $(".btn").click(function (e) {
-  e.preventDefault()
+  e.preventDefault();
   let searchInput = $("#input").val();
+
   geocode(searchInput, MAP_BOX_KEY).then(function (data) {
     longitude = data[0];
     latitude = data[1];
 
     marker.setLngLat([longitude, latitude]);
     MAP.flyTo({center: [longitude, latitude]});
-    retrieveData(longitude, latitude);
+    retrieveData();
 
-    marker.on('dragend', draggable);
-
-    displayCurrentCity(searchInput);
-  })
+    displaySearchedCity(searchInput);
+  });
 });
 
 // TODO:
