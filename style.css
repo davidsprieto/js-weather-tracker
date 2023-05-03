@@ -1,4 +1,39 @@
-h5 {
+.jumbotron {
+    background-color: lightblue
+}
+
+.bi-cloud-sun {
+    margin-bottom: 15px;
+}
+
+.form-inline {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#map {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 96%;
+    height: 600px;
+    margin: 1rem auto;
+}
+
+#current-location-label {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 2rem;
+}
+
+#weather {
+    margin-left: 3.95%;
+    margin-right: 1%;
+}
+
+.weather-date {
     background-color: lightgray;
     width: 100%;
 }

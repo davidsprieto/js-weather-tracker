@@ -9,50 +9,57 @@ const OPEN_WEATHER_KEY = config.OPEN_WEATHER_KEY;
 
 // Function that makes the get request to the open weather api to obtain the 5-day forecast data --------//
 function retrieveData(lon, lat) {
-    $.get("https://api.openweathermap.org/data/2.5/onecall", {
-        APPID: OPEN_WEATHER_KEY,
-        lon: longitude,
-        lat: latitude,
-        units: "imperial",
-        exclude: "minutely"
-    }).done(function(data, status) {
-        // console.log(data);
-        // console.log(status);
-        displayWeather(data);
-    });
+  $.get("https://api.openweathermap.org/data/2.5/onecall", {
+    APPID: OPEN_WEATHER_KEY,
+    lon: longitude,
+    lat: latitude,
+    units: "imperial",
+    exclude: "minutely"
+  }).done(function (data) {
+    displayWeather(data);
+  });
 }
+
 // A call to the function that makes the get request to retrieve the 5-day forecast data -------//
 retrieveData();
 
+// Function that renders the weather data to the page
 function displayWeather(data) {
 
-    let html = "";
-    for (let i = 0; i < 5; i++) {
-        const DAY_JS_OBJECT = dayjs();
-        let iconCode = data.daily[i].weather[0].icon;
+  let html = "";
+  for (let i = 0; i < 5; i++) {
+    const DAY_JS_OBJECT = dayjs();
+    let iconCode = data.daily[i].weather[0].icon;
 
-        let htmlLine = '<div class="col-2 card text-center">';
-        htmlLine += '<h5>' + "Date: " + DAY_JS_OBJECT.add([i], 'day').format("M/D/YYYY") + '</h5>';
-        htmlLine += '<p>' + "High: " + data.daily[i].temp.max.toString() + " / Low: " + data.daily[i].temp.min.toString() + '</p>';
-        htmlLine += '<p>' + "<img src='https://openweathermap.org/img/w/" + iconCode + ".png' alt='weather icon'>" + '</p>';
-        htmlLine += '<p>' + "Description: " + data.daily[i].weather[0].description + '</p>';
-        htmlLine += '<p>' + "Humidity: " + data.daily[i].humidity + '</p>';
-        htmlLine += '<p>' + "Wind Speed: " + data.daily[i].wind_speed + '</p>';
-        htmlLine += '<p>' + "Pressure: " + data.daily[i].pressure + '</p>';
-        htmlLine += '</div>';
-        htmlLine += '<hr/>';
-        html += htmlLine;
-    }
-    $('#weather').html(html);
+    let htmlLine = '<div class="col-2 card text-center">';
+    htmlLine += '<h5 class="weather-date">' + "Date: " + DAY_JS_OBJECT.add([i], 'day').format("M/D/YYYY") + '</h5>';
+    htmlLine += '<p>' + "High: " + data.daily[i].temp.max.toString() + " / Low: " + data.daily[i].temp.min.toString() + '</p>';
+    htmlLine += '<p>' + "<img src='https://openweathermap.org/img/w/" + iconCode + ".png' alt='weather icon'>" + '</p>';
+    htmlLine += '<p>' + "Description: " + data.daily[i].weather[0].description + '</p>';
+    htmlLine += '<p>' + "Humidity: " + data.daily[i].humidity + '</p>';
+    htmlLine += '<p>' + "Wind Speed: " + data.daily[i].wind_speed + '</p>';
+    htmlLine += '<p>' + "Pressure: " + data.daily[i].pressure + '</p>';
+    htmlLine += '</div>';
+    htmlLine += '<hr/>';
+    html += htmlLine;
+  }
+  $('#weather').html(html);
+}
+
+// Function that displays the current location of the weather
+function displayCurrentCity(searchInput) {
+  let location = searchInput[0].toUpperCase() + searchInput.slice(1);
+  let html = `<h3 id="current-location-label">Current Location: ${location}</h3>`;
+  $('#current-location-container').html(html);
 }
 
 // Mapbox Map API Object ------------//
 mapboxgl.accessToken = MAP_BOX_KEY;
 const MAP = new mapboxgl.Map({
-    container: 'map', // container ID
-    style: 'mapbox://styles/mapbox/streets-v11', // style URL
-    center: [longitude, latitude], // starting position [lng, lat]
-    zoom: 4 // starting zoom
+  container: 'map', // container ID
+  style: 'mapbox://styles/mapbox/streets-v11', // style URL
+  center: [longitude, latitude], // starting position [lng, lat]
+  zoom: 4 // starting zoom
 });
 
 // Disables mouse scroll zoom ----------//
@@ -64,34 +71,36 @@ MAP.addControl(NAV, 'top-right');
 
 // Mapbox Map API Marker ----------------//
 let marker = new mapboxgl.Marker({
-    draggable: true
+  draggable: true
 }).setLngLat([longitude, latitude]).addTo(MAP);
 
 // Functionality to draggable marker ----------//
 function draggable() {
-    let lngLat = marker.getLngLat();
-    longitude = lngLat.lng;
-    latitude = lngLat.lat;
-    retrieveData();
+  let lngLat = marker.getLngLat();
+  longitude = lngLat.lng;
+  latitude = lngLat.lat;
+  retrieveData();
 }
+
 marker.on('dragend', draggable);
 
 // City search input function to display the 5-day weather forecast, drop a marker, and center (flyTo) the map on the searched city ------//
 $(".btn").click(function (e) {
-    e.preventDefault()
-    let searchInput = $("#input").val();
-    geocode(searchInput, MAP_BOX_KEY).then(function(data) {
-        // console.log(data);
-        longitude = data[0];
-        latitude = data[1];
+  e.preventDefault()
+  let searchInput = $("#input").val();
+  geocode(searchInput, MAP_BOX_KEY).then(function (data) {
+    longitude = data[0];
+    latitude = data[1];
 
-        marker.setLngLat([longitude, latitude]);
-        MAP.flyTo({center:[longitude, latitude]});
-        retrieveData(longitude, latitude);
+    marker.setLngLat([longitude, latitude]);
+    MAP.flyTo({center: [longitude, latitude]});
+    retrieveData(longitude, latitude);
 
-        marker.on('dragend', draggable);
-    })
+    marker.on('dragend', draggable);
+
+    displayCurrentCity(searchInput);
+  })
 });
 
 // TODO:
-//  Display location of current weather
+//  Display location of current weather ✅
