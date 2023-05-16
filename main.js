@@ -59,7 +59,7 @@ function displaySearchedCity(searchInput) {
 
 // Function that displays the city of the weather when the user drags the marker to a city on the map ----------//
 function displayMarkerDragCity(longitude, latitude) {
-  reverseGeocode({lat:latitude, lng:longitude}, MAP_BOX_KEY).then(function (data) {
+  reverseGeocode({lat:latitude, lng:longitude}, MAP_BOX_KEY).then((data) => {
     let city = data.split(',')[1].trim();
     renderHtml(city);
   });
