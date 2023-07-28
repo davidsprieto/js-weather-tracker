@@ -1,20 +1,27 @@
-# Weather Tracker - See the 5-Day Forecast at a Location of your Choosing!
-Single-page web application developed using:
+<h1 align="center">
+  Weather Tracker - See the 5-Day Forecast at a Location of your Choosing!
+</h1>
 
-Markup Language:
-- HTML
+<h3 align="center">
+  Single-page web application developed using:
+</h3>
 
-Style Sheet Language:
-- CSS
+<p align="center">
+  Markup Language: HTML
+</p>
 
-Programming language:
-- JavaScript
+<p align="center">
+  Style Sheet Language: CSS
+</p>
 
-Frameworks:
-- jQuery
-- Bootstrap
+<p align="center">
+  Programming language: JavaScript
+</p>
 
-APIs:
-- OpenWeatherMap
-- Mapbox
-- Day
+<p align="center">
+  Frameworks: jQuery & Bootstrap
+</p>
+
+<p align="center">
+  APIs: OpenWeatherMap, Mapbox, & Day
+</p>
